@@ -13,6 +13,8 @@ class EndSessionRequest with AcceptedAuthorizationServiceConfigurationDetails {
     String? issuer,
     String? discoveryUrl,
     AuthorizationServiceConfiguration? serviceConfiguration,
+    this.iosModalPresentationStyle,
+    this.iosModalTransitionStyle,
   }) {
     this.serviceConfiguration = serviceConfiguration;
     this.issuer = issuer;
@@ -42,4 +44,14 @@ class EndSessionRequest with AcceptedAuthorizationServiceConfigurationDetails {
 
   /// Additional parameters to include in the request.
   final Map<String, String>? additionalParameters;
+
+  /// Specifies the presentation style to use for the external user-agent.
+  ///
+  /// This property is only applicable to iOS.
+  IOSModalPresentationStyle? iosModalPresentationStyle;
+
+  /// Specifies the transition style to use for the external user-agent.
+  ///
+  /// This property is only applicable to iOS.
+  IOSModalTransitionStyle? iosModalTransitionStyle;
 }

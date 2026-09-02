@@ -165,6 +165,14 @@ With an ephemeral session there will be no warning like `"app_name" Wants to Use
 The option `preferEphemeralSession = true` must only be used for the end session call if it is also used for the sign in call. 
 Otherwise, there will be still an active login session in the browser.
 
+### Customising the presentation on iOS
+When the `sfSafariViewController` external user-agent is used on iOS, the `iosModalPresentationStyle` and
+`iosModalTransitionStyle` parameters (available on `AuthorizationRequest`, `AuthorizationTokenRequest` and
+`EndSessionRequest`) can be used to customise how the underlying `SFSafariViewController` is presented and
+transitioned, mirroring UIKit's `UIModalPresentationStyle` and `UIModalTransitionStyle`. These parameters have
+no effect on `ASWebAuthenticationSession`-backed user-agents (e.g. `asWebAuthenticationSession`,
+`ephemeralAsWebAuthenticationSession`), as their presentation is managed entirely by the system, nor on macOS.
+
 ## Android setup
 
 Go to the `build.gradle.kts` file for your Android app to specify the custom scheme so that there should be a section in it that look similar to the following but replace `<your_custom_scheme>` with the desired value:

@@ -10,9 +10,14 @@
              redirectUrl:(NSString *)redirectUrl
     additionalParameters:(NSDictionary *)additionalParameters
        externalUserAgent:(NSNumber *)externalUserAgent
+  iosModalPresentationStyle:(nullable NSNumber *)iosModalPresentationStyle
+    iosModalTransitionStyle:(nullable NSNumber *)iosModalTransitionStyle
                   result:(FlutterResult)result
             exchangeCode:(BOOL)exchangeCode
                    nonce:(NSString *)nonce {
+  // iosModalPresentationStyle and iosModalTransitionStyle are not applicable
+  // to macOS since there is no SFSafariViewController/UIViewController
+  // equivalent to customise; they are intentionally ignored here.
   NSString *codeVerifier = [OIDAuthorizationRequest generateCodeVerifier];
   NSString *codeChallenge =
       [OIDAuthorizationRequest codeChallengeS256ForVerifier:codeVerifier];

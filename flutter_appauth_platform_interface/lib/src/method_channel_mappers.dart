@@ -34,6 +34,8 @@ extension EndSessionRequestMapper on EndSessionRequest {
       'discoveryUrl': discoveryUrl,
       'serviceConfiguration': serviceConfiguration?.toMap(),
       'externalUserAgent': externalUserAgent?.index,
+      'iosModalPresentationStyle': iosModalPresentationStyle?.index,
+      'iosModalTransitionStyle': iosModalTransitionStyle?.index,
     };
   }
 }
@@ -101,5 +103,9 @@ Map<String, Object?> _convertAuthorizationParametersToMap(
     'promptValues': authorizationParameters.promptValues,
     'externalUserAgent': authorizationParameters.externalUserAgent?.index,
     'responseMode': authorizationParameters.responseMode,
+    'iosModalPresentationStyle':
+        authorizationParameters.iosModalPresentationStyle?.index,
+    'iosModalTransitionStyle':
+        authorizationParameters.iosModalTransitionStyle?.index,
   };
 }

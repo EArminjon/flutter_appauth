@@ -1,5 +1,69 @@
 #import "AppAuthIOSAuthorization.h"
 
+// Converts the `IOSModalPresentationStyle` Dart enum index (see
+// ios_modal_presentation_style.dart) into the corresponding
+// `UIModalPresentationStyle` raw value. Falls back to `defaultStyle` when
+// `iosModalPresentationStyle` is nil or unrecognised.
+static UIModalPresentationStyle ModalPresentationStyleFromNumber(
+    NSNumber *_Nullable iosModalPresentationStyle,
+    UIModalPresentationStyle defaultStyle) {
+  if (!iosModalPresentationStyle) {
+    return defaultStyle;
+  }
+  switch ((IOSModalPresentationStyle)[iosModalPresentationStyle integerValue]) {
+    case ModalPresentationAutomatic:
+      if (@available(iOS 13.0, *)) {
+        return UIModalPresentationAutomatic;
+      }
+      return UIModalPresentationFullScreen;
+    case ModalPresentationFullScreen:
+      return UIModalPresentationFullScreen;
+    case ModalPresentationPageSheet:
+      return UIModalPresentationPageSheet;
+    case ModalPresentationFormSheet:
+      return UIModalPresentationFormSheet;
+    case ModalPresentationCurrentContext:
+      return UIModalPresentationCurrentContext;
+    case ModalPresentationCustom:
+      return UIModalPresentationCustom;
+    case ModalPresentationOverFullScreen:
+      return UIModalPresentationOverFullScreen;
+    case ModalPresentationOverCurrentContext:
+      return UIModalPresentationOverCurrentContext;
+    case ModalPresentationPopover:
+      return UIModalPresentationPopover;
+    case ModalPresentationNone:
+      if (@available(iOS 13.0, *)) {
+        return UIModalPresentationNone;
+      }
+      return UIModalPresentationFullScreen;
+  }
+  return defaultStyle;
+}
+
+// Converts the `IOSModalTransitionStyle` Dart enum index (see
+// ios_modal_transition_style.dart) into the corresponding
+// `UIModalTransitionStyle` raw value. Falls back to `defaultStyle` when
+// `iosModalTransitionStyle` is nil or unrecognised.
+static UIModalTransitionStyle ModalTransitionStyleFromNumber(
+    NSNumber *_Nullable iosModalTransitionStyle,
+    UIModalTransitionStyle defaultStyle) {
+  if (!iosModalTransitionStyle) {
+    return defaultStyle;
+  }
+  switch ((IOSModalTransitionStyle)[iosModalTransitionStyle integerValue]) {
+    case ModalTransitionCoverVertical:
+      return UIModalTransitionStyleCoverVertical;
+    case ModalTransitionFlipHorizontal:
+      return UIModalTransitionStyleFlipHorizontal;
+    case ModalTransitionCrossDissolve:
+      return UIModalTransitionStyleCrossDissolve;
+    case ModalTransitionPartialCurl:
+      return UIModalTransitionStylePartialCurl;
+  }
+  return defaultStyle;
+}
+
 @implementation AppAuthIOSAuthorization
 
 - (id<OIDExternalUserAgentSession>)
@@ -10,6 +74,8 @@
              redirectUrl:(NSString *)redirectUrl
     additionalParameters:(NSDictionary *)additionalParameters
        externalUserAgent:(NSNumber *)externalUserAgent
+  iosModalPresentationStyle:(nullable NSNumber *)iosModalPresentationStyle
+    iosModalTransitionStyle:(nullable NSNumber *)iosModalTransitionStyle
                   result:(FlutterResult)result
             exchangeCode:(BOOL)exchangeCode
                    nonce:(NSString *)nonce {
@@ -36,7 +102,9 @@
   if (exchangeCode) {
     id<OIDExternalUserAgent> agent =
         [self userAgentWithViewController:rootViewController
-                        externalUserAgent:externalUserAgent];
+                        externalUserAgent:externalUserAgent
+                   modalPresentationStyle:iosModalPresentationStyle
+                     modalTransitionStyle:iosModalTransitionStyle];
     return [OIDAuthState
         authStateByPresentingAuthorizationRequest:request
                                 externalUserAgent:agent
@@ -68,7 +136,9 @@
   } else {
     id<OIDExternalUserAgent> agent =
         [self userAgentWithViewController:rootViewController
-                        externalUserAgent:externalUserAgent];
+                        externalUserAgent:externalUserAgent
+                   modalPresentationStyle:iosModalPresentationStyle
+                     modalTransitionStyle:iosModalTransitionStyle];
     return [OIDAuthorizationService
         presentAuthorizationRequest:request
                   externalUserAgent:agent
@@ -136,7 +206,11 @@
   UIViewController *rootViewController = [self rootViewController];
   id<OIDExternalUserAgent> externalUserAgent =
       [self userAgentWithViewController:rootViewController
-                      externalUserAgent:requestParameters.externalUserAgent];
+                      externalUserAgent:requestParameters.externalUserAgent
+                 modalPresentationStyle:requestParameters
+                                            .iosModalPresentationStyle
+                   modalTransitionStyle:requestParameters
+                                            .iosModalTransitionStyle];
 
   return [OIDAuthorizationService
       presentEndSessionRequest:endSessionRequest
@@ -164,14 +238,28 @@
 
 - (id<OIDExternalUserAgent>)
     userAgentWithViewController:(UIViewController *)rootViewController
-              externalUserAgent:(NSNumber *)externalUserAgent {
+              externalUserAgent:(NSNumber *)externalUserAgent
+         modalPresentationStyle:(nullable NSNumber *)iosModalPresentationStyle
+           modalTransitionStyle:(nullable NSNumber *)iosModalTransitionStyle {
   if ([externalUserAgent integerValue] == EphemeralASWebAuthenticationSession) {
     return [[OIDExternalUserAgentIOSNoSSO alloc]
-        initWithPresentingViewController:rootViewController];
+        initWithPresentingViewController:rootViewController
+                  modalPresentationStyle:ModalPresentationStyleFromNumber(
+                                             iosModalPresentationStyle,
+                                             UIModalPresentationFullScreen)
+                    modalTransitionStyle:ModalTransitionStyleFromNumber(
+                                             iosModalTransitionStyle,
+                                             UIModalTransitionStyleCoverVertical)];
   }
   if ([externalUserAgent integerValue] == SafariViewController) {
     return [[OIDExternalUserAgentIOSSafariViewController alloc]
-        initWithPresentingViewController:rootViewController];
+        initWithPresentingViewController:rootViewController
+                  modalPresentationStyle:ModalPresentationStyleFromNumber(
+                                             iosModalPresentationStyle,
+                                             UIModalPresentationFormSheet)
+                    modalTransitionStyle:ModalTransitionStyleFromNumber(
+                                             iosModalTransitionStyle,
+                                             UIModalTransitionStyleCoverVertical)];
   }
   if ([externalUserAgent integerValue] == CustomBrowserSafari) {
     return [OIDExternalUserAgentIOSCustomBrowser CustomBrowserSafari];

@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation OIDExternalUserAgentIOSNoSSO {
   UIViewController *_presentingViewController;
+  UIModalPresentationStyle _modalPresentationStyle;
+  UIModalTransitionStyle _modalTransitionStyle;
 
   BOOL _externalUserAgentFlowInProgress;
   __weak id<OIDExternalUserAgentSession> _session;
@@ -47,6 +49,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable instancetype)initWithPresentingViewController:
     (UIViewController *)presentingViewController {
+  return [self
+      initWithPresentingViewController:presentingViewController
+                modalPresentationStyle:UIModalPresentationFullScreen
+                  modalTransitionStyle:UIModalTransitionStyleCoverVertical];
+}
+
+- (nullable instancetype)
+    initWithPresentingViewController:
+        (UIViewController *)presentingViewController
+                modalPresentationStyle:
+                    (UIModalPresentationStyle)modalPresentationStyle
+                  modalTransitionStyle:
+                      (UIModalTransitionStyle)modalTransitionStyle {
   self = [super init];
   if (self) {
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
@@ -55,6 +70,8 @@ NS_ASSUME_NONNULL_BEGIN
 #endif // __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
 
     _presentingViewController = presentingViewController;
+    _modalPresentationStyle = modalPresentationStyle;
+    _modalTransitionStyle = modalTransitionStyle;
   }
   return self;
 }
@@ -155,6 +172,8 @@ NS_ASSUME_NONNULL_BEGIN
       SFSafariViewController *safariVC =
           [[SFSafariViewController alloc] initWithURL:requestURL];
       safariVC.delegate = self;
+      safariVC.modalPresentationStyle = _modalPresentationStyle;
+      safariVC.modalTransitionStyle = _modalTransitionStyle;
       _safariVC = safariVC;
       [_presentingViewController presentViewController:safariVC
                                               animated:YES

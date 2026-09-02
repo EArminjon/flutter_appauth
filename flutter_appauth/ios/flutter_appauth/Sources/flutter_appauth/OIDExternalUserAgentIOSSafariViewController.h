@@ -62,13 +62,33 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nonnull instancetype)init NS_UNAVAILABLE;
 
-/*! @brief The designated initializer.
+/*! @brief Convenience initializer that uses @c UIModalPresentationFormSheet
+        and @c UIModalTransitionStyleCoverVertical, matching the historic
+        default behaviour of this class.
     @param presentingViewController The view controller from which to present
    the
         \SFSafariViewController.
  */
 - (nullable instancetype)initWithPresentingViewController:
-    (UIViewController *)presentingViewController NS_DESIGNATED_INITIALIZER;
+    (UIViewController *)presentingViewController;
+
+/*! @brief The designated initializer.
+    @param presentingViewController The view controller from which to present
+   the
+        \SFSafariViewController.
+    @param modalPresentationStyle The @c UIModalPresentationStyle to apply to
+        the presented \SFSafariViewController.
+    @param modalTransitionStyle The @c UIModalTransitionStyle to apply to
+        the presented \SFSafariViewController.
+ */
+- (nullable instancetype)
+    initWithPresentingViewController:
+        (UIViewController *)presentingViewController
+                modalPresentationStyle:
+                    (UIModalPresentationStyle)modalPresentationStyle
+                  modalTransitionStyle:
+                      (UIModalTransitionStyle)modalTransitionStyle
+    NS_DESIGNATED_INITIALIZER;
 
 @end
 

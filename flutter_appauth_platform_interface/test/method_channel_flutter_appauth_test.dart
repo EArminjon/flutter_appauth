@@ -43,6 +43,8 @@ void main() {
           'promptValues': null,
           'responseMode': null,
           'nonce': null,
+          'iosModalPresentationStyle': null,
+          'iosModalTransitionStyle': null,
         })
       ],
     );
@@ -77,6 +79,8 @@ void main() {
           'codeVerifier': null,
           'responseMode': 'fragment',
           'nonce': null,
+          'iosModalPresentationStyle': null,
+          'iosModalTransitionStyle': null,
         })
       ],
     );
@@ -187,6 +191,8 @@ void main() {
         'discoveryUrl': 'someDiscoveryUrl',
         'serviceConfiguration': null,
         'externalUserAgent': ExternalUserAgent.asWebAuthenticationSession.index,
+        'iosModalPresentationStyle': null,
+        'iosModalTransitionStyle': null,
       })
     ]);
   });

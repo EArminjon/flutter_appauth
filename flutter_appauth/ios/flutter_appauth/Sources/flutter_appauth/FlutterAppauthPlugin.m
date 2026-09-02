@@ -31,6 +31,8 @@
 @property(nonatomic, strong) NSDictionary *serviceConfigurationParameters;
 @property(nonatomic, strong) NSDictionary *additionalParameters;
 @property(nonatomic, strong) NSNumber *externalUserAgent;
+@property(nonatomic, strong) NSNumber *iosModalPresentationStyle;
+@property(nonatomic, strong) NSNumber *iosModalTransitionStyle;
 
 @end
 
@@ -67,6 +69,12 @@
   _externalUserAgent =
       [ArgumentProcessor processArgumentValue:arguments
                                       withKey:@"externalUserAgent"];
+  _iosModalPresentationStyle =
+      [ArgumentProcessor processArgumentValue:arguments
+                                      withKey:@"iosModalPresentationStyle"];
+  _iosModalTransitionStyle =
+      [ArgumentProcessor processArgumentValue:arguments
+                                      withKey:@"iosModalTransitionStyle"];
 }
 
 - (id)initWithArguments:(NSDictionary *)arguments {
@@ -116,6 +124,12 @@
   _externalUserAgent =
       [ArgumentProcessor processArgumentValue:arguments
                                       withKey:@"externalUserAgent"];
+  _iosModalPresentationStyle =
+      [ArgumentProcessor processArgumentValue:arguments
+                                      withKey:@"iosModalPresentationStyle"];
+  _iosModalTransitionStyle =
+      [ArgumentProcessor processArgumentValue:arguments
+                                      withKey:@"iosModalTransitionStyle"];
   return self;
 }
 @end
@@ -209,6 +223,8 @@ AppAuthAuthorization *authorization;
                  redirectUrl:requestParameters.redirectUrl
         additionalParameters:requestParameters.additionalParameters
            externalUserAgent:requestParameters.externalUserAgent
+   iosModalPresentationStyle:requestParameters.iosModalPresentationStyle
+     iosModalTransitionStyle:requestParameters.iosModalTransitionStyle
                       result:result
                 exchangeCode:exchangeCode
                        nonce:requestParameters.nonce];
@@ -249,6 +265,12 @@ AppAuthAuthorization *authorization;
                                                   externalUserAgent:
                                                       requestParameters
                                                           .externalUserAgent
+                                          iosModalPresentationStyle:
+                                              requestParameters
+                                                  .iosModalPresentationStyle
+                                            iosModalTransitionStyle:
+                                                requestParameters
+                                                    .iosModalTransitionStyle
                                                              result:result
                                                        exchangeCode:exchangeCode
                                                               nonce:
@@ -289,6 +311,12 @@ AppAuthAuthorization *authorization;
                                                 externalUserAgent:
                                                     requestParameters
                                                         .externalUserAgent
+                                        iosModalPresentationStyle:
+                                            requestParameters
+                                                .iosModalPresentationStyle
+                                          iosModalTransitionStyle:
+                                              requestParameters
+                                                  .iosModalTransitionStyle
                                                            result:result
                                                      exchangeCode:exchangeCode
                                                             nonce:

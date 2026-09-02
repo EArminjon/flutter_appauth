@@ -56,6 +56,8 @@ static NSString *const END_SESSION_ERROR_MESSAGE_FORMAT =
 @property(nonatomic, strong) NSDictionary *serviceConfigurationParameters;
 @property(nonatomic, strong) NSDictionary *additionalParameters;
 @property(nonatomic, strong) NSNumber *externalUserAgent;
+@property(nonatomic, strong) NSNumber *iosModalPresentationStyle;
+@property(nonatomic, strong) NSNumber *iosModalTransitionStyle;
 @end
 
 typedef NS_ENUM(NSInteger, ExternalUserAgent) {
@@ -68,6 +70,32 @@ typedef NS_ENUM(NSInteger, ExternalUserAgent) {
   CustomBrowserOpera
 };
 
+// Mirrors the order of the `IOSModalPresentationStyle` Dart enum. The values
+// are intentionally not a 1:1 mapping to `UIModalPresentationStyle`'s raw
+// values, since those aren't contiguous (e.g. `UIModalPresentationNone` is
+// `-1`). See `ModalPresentationStyleFromNumber` in AppAuthIOSAuthorization.m.
+typedef NS_ENUM(NSInteger, IOSModalPresentationStyle) {
+  ModalPresentationAutomatic,
+  ModalPresentationFullScreen,
+  ModalPresentationPageSheet,
+  ModalPresentationFormSheet,
+  ModalPresentationCurrentContext,
+  ModalPresentationCustom,
+  ModalPresentationOverFullScreen,
+  ModalPresentationOverCurrentContext,
+  ModalPresentationPopover,
+  ModalPresentationNone
+};
+
+// Mirrors the order of the `IOSModalTransitionStyle` Dart enum, which in turn
+// mirrors `UIModalTransitionStyle`'s raw values.
+typedef NS_ENUM(NSInteger, IOSModalTransitionStyle) {
+  ModalTransitionCoverVertical,
+  ModalTransitionFlipHorizontal,
+  ModalTransitionCrossDissolve,
+  ModalTransitionPartialCurl
+};
+
 @interface AppAuthAuthorization : NSObject
 
 - (id<OIDExternalUserAgentSession>)
@@ -78,6 +106,8 @@ typedef NS_ENUM(NSInteger, ExternalUserAgent) {
              redirectUrl:(NSString *)redirectUrl
     additionalParameters:(NSDictionary *)additionalParameters
        externalUserAgent:(NSNumber *)externalUserAgent
+  iosModalPresentationStyle:(nullable NSNumber *)iosModalPresentationStyle
+    iosModalTransitionStyle:(nullable NSNumber *)iosModalTransitionStyle
                   result:(FlutterResult)result
             exchangeCode:(BOOL)exchangeCode
                    nonce:(NSString *)nonce;

@@ -2,6 +2,8 @@ import 'authorization_parameters.dart';
 import 'authorization_service_configuration.dart';
 import 'common_request_details.dart';
 import 'external_user_agent.dart';
+import 'ios_modal_presentation_style.dart';
+import 'ios_modal_transition_style.dart';
 
 /// The details of an authorization request to get an authorization code.
 class AuthorizationRequest extends CommonRequestDetails
@@ -21,6 +23,8 @@ class AuthorizationRequest extends CommonRequestDetails
         ExternalUserAgent.asWebAuthenticationSession,
     String? nonce,
     String? responseMode,
+    IOSModalPresentationStyle? iosModalPresentationStyle,
+    IOSModalTransitionStyle? iosModalTransitionStyle,
   }) {
     this.clientId = clientId;
     this.redirectUrl = redirectUrl;
@@ -35,6 +39,8 @@ class AuthorizationRequest extends CommonRequestDetails
     this.externalUserAgent = externalUserAgent;
     this.nonce = nonce;
     this.responseMode = responseMode;
+    this.iosModalPresentationStyle = iosModalPresentationStyle;
+    this.iosModalTransitionStyle = iosModalTransitionStyle;
     assertConfigurationInfo();
   }
 }

@@ -13,6 +13,8 @@ export 'package:flutter_appauth_platform_interface/flutter_appauth_platform_inte
         FlutterAppAuthUserCancelledException,
         FlutterAppAuthPlatformException,
         GrantType,
+        IOSModalPresentationStyle,
+        IOSModalTransitionStyle,
         Prompt,
         TokenRequest,
         TokenResponse;

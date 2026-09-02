@@ -1,4 +1,6 @@
 import 'external_user_agent.dart';
+import 'ios_modal_presentation_style.dart';
+import 'ios_modal_transition_style.dart';
 
 mixin AuthorizationParameters {
   /// Hint to the Authorization Server about the login identifier the End-User
@@ -14,4 +16,14 @@ mixin AuthorizationParameters {
 
   /// Specifies the response mode to use.
   String? responseMode;
+
+  /// Specifies the presentation style to use for the external user-agent.
+  ///
+  /// This property is only applicable to iOS.
+  IOSModalPresentationStyle? iosModalPresentationStyle;
+
+  /// Specifies the transition style to use for the external user-agent.
+  ///
+  /// This property is only applicable to iOS.
+  IOSModalTransitionStyle? iosModalTransitionStyle;
 }

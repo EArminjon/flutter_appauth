@@ -208,6 +208,8 @@ AppAuthAuthorization *authorization;
                  redirectUrl:requestParameters.redirectUrl
         additionalParameters:requestParameters.additionalParameters
            externalUserAgent:requestParameters.externalUserAgent
+   iosModalPresentationStyle:nil
+     iosModalTransitionStyle:nil
                       result:result
                 exchangeCode:exchangeCode
                        nonce:requestParameters.nonce];
@@ -248,6 +250,8 @@ AppAuthAuthorization *authorization;
                                                   externalUserAgent:
                                                       requestParameters
                                                           .externalUserAgent
+                                          iosModalPresentationStyle:nil
+                                            iosModalTransitionStyle:nil
                                                              result:result
                                                        exchangeCode:exchangeCode
                                                               nonce:
@@ -288,6 +292,8 @@ AppAuthAuthorization *authorization;
                                                 externalUserAgent:
                                                     requestParameters
                                                         .externalUserAgent
+                                        iosModalPresentationStyle:nil
+                                          iosModalTransitionStyle:nil
                                                            result:result
                                                      exchangeCode:exchangeCode
                                                             nonce:

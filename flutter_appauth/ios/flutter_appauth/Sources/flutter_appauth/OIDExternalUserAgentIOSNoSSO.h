@@ -42,7 +42,27 @@ API_UNAVAILABLE(macCatalyst)
         \SFSafariViewController.
  */
 - (nullable instancetype)initWithPresentingViewController:
-    (UIViewController *)presentingViewController NS_DESIGNATED_INITIALIZER;
+    (UIViewController *)presentingViewController;
+
+/*! @brief Initializer allowing customisation of the presentation and
+        transition styles used when falling back to \SFSafariViewController
+        on iOS 9 and 10.
+    @param presentingViewController The view controller from which to present
+   the
+        \SFSafariViewController.
+    @param modalPresentationStyle The @c UIModalPresentationStyle to apply to
+        the presented \SFSafariViewController.
+    @param modalTransitionStyle The @c UIModalTransitionStyle to apply to
+        the presented \SFSafariViewController.
+ */
+- (nullable instancetype)
+    initWithPresentingViewController:
+        (UIViewController *)presentingViewController
+                modalPresentationStyle:
+                    (UIModalPresentationStyle)modalPresentationStyle
+                  modalTransitionStyle:
+                      (UIModalTransitionStyle)modalTransitionStyle
+    NS_DESIGNATED_INITIALIZER;
 
 @end
 

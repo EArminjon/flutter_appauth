@@ -1,3 +1,7 @@
+## [Unreleased]
+
+* [iOS] exposed `iosModalPresentationStyle` and `iosModalTransitionStyle` parameters to customise how the `SFSafariViewController`-backed external user-agent is presented
+
 ## [12.1.0]
 
 * [iOS] added custom browser support. Thanks to the PR from [Kuurse)](https://github.com/Kuurse)

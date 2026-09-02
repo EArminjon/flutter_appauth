@@ -133,6 +133,8 @@
              redirectUrl:(NSString *)redirectUrl
     additionalParameters:(NSDictionary *)additionalParameters
        externalUserAgent:(NSNumber *)externalUserAgent
+  iosModalPresentationStyle:(nullable NSNumber *)iosModalPresentationStyle
+    iosModalTransitionStyle:(nullable NSNumber *)iosModalTransitionStyle
                   result:(FlutterResult)result
             exchangeCode:(BOOL)exchangeCode
                    nonce:(NSString *)nonce {
